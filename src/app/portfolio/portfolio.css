@@ -1,0 +1,139 @@
+.main {
+    background-color: black;
+}
+.header {
+    height: 80px;
+    border: 2px solid white;
+}
+.body {
+    height: calc(100vh - 80px);
+    border-bottom: 2px solid white;
+    border-left: 2px solid white;
+    border-right: 2px solid white;
+}
+.side-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+    border-right: 2px solid white;
+}
+.side-bar img {
+    width: 250px;
+}
+
+
+/* start media */
+.cards {
+  width: fit-content;
+  height: fit-content;
+  background-color: rgb(238, 238, 238);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 10px;
+  gap: 10px;
+}
+
+/* for all social containers*/
+.socialContainer {
+  width: 52px;
+  height: 52px;
+  background-color: rgb(44, 44, 44);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition-duration: .3s;
+}
+/* instagram*/
+.containerOne:hover {
+  background-color: #d62976;
+  transition-duration: .3s;
+}
+/* twitter*/
+.containerTwo:hover {
+  background-color: #00acee;
+  transition-duration: .3s;
+}
+/* linkdin*/
+.containerThree:hover {
+  background-color: #0072b1;
+  transition-duration: .3s;
+}
+/* Whatsapp*/
+.containerFour:hover {
+  background-color: #128C7E;
+  transition-duration: .3s;
+}
+
+.socialContainer:active {
+  transform: scale(0.9);
+  transition-duration: .3s;
+}
+
+.socialSvg {
+  width: 17px;
+}
+
+.socialSvg path {
+  fill: rgb(255, 255, 255);
+}
+
+.socialContainer:hover .socialSvg {
+  animation: slide-in-top 0.3s both;
+}
+
+@keyframes slide-in-top {
+  0% {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* start body */
+/* start terminal */
+.terminal {
+    padding: 20px 40px;
+    font-size: 20px;
+    overflow: auto;
+}
+.menu {
+    display: flex;
+    gap: 5px;
+    padding: 0;
+    flex-wrap: wrap;
+    padding-bottom: 10px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.42);
+}
+.menu li {
+    list-style: none;
+}
+.command-line {
+  height: fit-content;
+  align-items: center;
+}
+.command-line input {
+  background-color: transparent;
+  border: none;
+  padding: 0px 10px;
+  color: white;
+  font-size: 16px;
+}
+.command-line input:focus {
+  outline: none;
+}
+.display-list {
+  border-left: 2px solid orange;
+  font-family: monospace;
+  white-space: pre-wrap;
+  padding-left: 15px;
+}
+
