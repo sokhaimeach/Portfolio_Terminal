@@ -13,22 +13,37 @@ export class Portfolio implements OnInit, AfterViewInit {
   timer: any
   inputKey: string = ''
   storeCommands: any[] = []
+
   @ViewChild('store') store!: ElementRef<HTMLDivElement>
   @ViewChild('target') target!: ElementRef<HTMLElement>
   @ViewChild('test') test!: ElementRef<HTMLElement>
   @ViewChild('input') input!: ElementRef<HTMLInputElement>
-  content: string = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis quidem asperiores harum accusantium Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis quidem asperiores harum accusantium Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis quidem asperiores harum accusantium'
+
   constructor(private ser: Service) { }
   ngOnInit() {
-    this.ser.setLang('km')
+    this.ser.setLang('en')
     this.data = this.ser.data()
   }
   ngAfterViewInit(): void {
-    this.input.nativeElement.addEventListener('keypress',() => this.input.nativeElement.focus())
+    this.input.nativeElement.addEventListener('keydown', (e: KeyboardEvent) => {
+      const key = e.key
+
+      console.log(key)
+      if (key == 'Tab') {
+        this.tabToFill();
+      }
+      if (key == 'Enter') {
+        this.checkCommand();
+      }
+    })
   }
 
-  checkCommand() {
-    switch(this.inputKey){
+  checkKey(e: KeyboardEvent) {
+    
+  }
+
+  checkCommand(): void {
+    switch (this.inputKey) {
       case this.data.commands[0]: {
         this.outputHelp()
         break
@@ -113,24 +128,24 @@ export class Portfolio implements OnInit, AfterViewInit {
 
   outputHelp() {
     let text = ''
-      text = '\n'+(this.data.labels[0].key+'               -'+this.data.labels[0].way+'\n')
-      + (this.data.labels[1].key+'             -'+this.data.labels[1].way+'\n')
-      + (this.data.labels[2].key+'           -'+this.data.labels[2].way+'\n')
-      + (this.data.labels[3].key+'     -'+this.data.labels[3].way+'\n')
-      + (this.data.labels[4].key+'                 -'+this.data.labels[4].way+'\n')
-      + (this.data.labels[5].key+'           -'+this.data.labels[5].way+'\n')
-      + (this.data.labels[6].key+'            -'+this.data.labels[6].way+'\n')
-      + (this.data.labels[7].key+'               -'+this.data.labels[7].way+'\n')
-      + (this.data.labels[8].key+'               -'+this.data.labels[8].way+'\n')
-      const html = text
+    text = '\n' + (this.data.labels[0].key + '               -' + this.data.labels[0].way + '\n')
+      + (this.data.labels[1].key + '             -' + this.data.labels[1].way + '\n')
+      + (this.data.labels[2].key + '           -' + this.data.labels[2].way + '\n')
+      + (this.data.labels[3].key + '     -' + this.data.labels[3].way + '\n')
+      + (this.data.labels[4].key + '                 -' + this.data.labels[4].way + '\n')
+      + (this.data.labels[5].key + '           -' + this.data.labels[5].way + '\n')
+      + (this.data.labels[6].key + '            -' + this.data.labels[6].way + '\n')
+      + (this.data.labels[7].key + '               -' + this.data.labels[7].way + '\n')
+      + (this.data.labels[8].key + '               -' + this.data.labels[8].way + '\n')
+    const html = text
     this.typing(text, html)
   }
 
   outputAbout() {
     let text = '\n'
-    for(let i = 0; i < this.data.about.length; i++){
-      if(i<this.data.about.length -1)
-        text += this.data.about[i]+'\n'
+    for (let i = 0; i < this.data.about.length; i++) {
+      if (i < this.data.about.length - 1)
+        text += this.data.about[i] + '\n'
       else text += this.data.about[i]
     }
     const html = text
@@ -140,24 +155,24 @@ export class Portfolio implements OnInit, AfterViewInit {
   outputProject() {
     let text = '\n'
     let html = '\n'
-      this.data.projects.forEach((item:any) => {
-        text += (item.id+'.     '+item.title+'\n'
-        +'        Description    '+item.summary+'\n'
-        +'        Tech                '+item.tech+'\n'
-        + `        Link                 `+item.links[0].url+'\n\n')
-        html += (item.id+'.     '+item.title+'\n'
-        +'        Description    '+item.summary+'\n'
-        +'        Tech                '+item.tech+'\n'       
-        +`        Link                 <a href="${item.links[0].url}">`+item.links[0].url+'</a>\n\n');
-      });
+    this.data.projects.forEach((item: any) => {
+      text += (item.id + '.     ' + item.title + '\n'
+        + '        Description    ' + item.summary + '\n'
+        + '        Tech                ' + item.tech + '\n'
+        + `        Link                 ` + item.links[0].url + '\n\n')
+      html += (item.id + '.     ' + item.title + '\n'
+        + '        Description    ' + item.summary + '\n'
+        + '        Tech                ' + item.tech + '\n'
+        + `        Link                 <a href="${item.links[0].url}">` + item.links[0].url + '</a>\n\n');
+    });
     this.typing(text, html)
   }
 
   outputExperience() {
     let text = '\n'
     this.data.experience.forEach((ex: any) => {
-      text += '=== '+ex.title+' ===\n\n'
-      +ex.discription+'\n\n'
+      text += '=== ' + ex.title + ' ===\n\n'
+        + ex.discription + '\n\n'
     });
     const html = text
     this.typing(text, html)
@@ -166,41 +181,41 @@ export class Portfolio implements OnInit, AfterViewInit {
   outputSkills() {
     let text = '\n'
     this.data.skills.forEach((sk: any) => {
-      text += '=== '+sk.name+' ===\n\n'
-      +sk.items+'\n\n'
+      text += '=== ' + sk.name + ' ===\n\n'
+        + sk.items + '\n\n'
     });
     const html = text
     this.typing(text, html)
   }
 
-  outputContact(){
+  outputContact() {
     let text = '\n'
     let html = ''
     text += ('=== FEEL FREE TO CONTACT ME ===\n\n'
-    +'Email : '+this.data.contact.email+'\n'
-    +'Phone number : '+this.data.contact.phone+'\n'
-    +'Telegram : '+this.data.contact.telegram+'\n'
-    +'Address : '+this.data.contact.location+'\n')
+      + 'Email : ' + this.data.contact.email + '\n'
+      + 'Phone number : ' + this.data.contact.phone + '\n'
+      + 'Telegram : ' + this.data.contact.telegram + '\n'
+      + 'Address : ' + this.data.contact.location + '\n')
     html += (text
-      + this.data.contact.socials[0].label+` : <a href="${this.data.contact.socials[0].url}">View My Account</a>\n`
-      + this.data.contact.socials[1].label+` : <a href="${this.data.contact.socials[1].url}">View My Account</a>\n`
+      + this.data.contact.socials[0].label + ` : <a href="${this.data.contact.socials[0].url}">View My Account</a>\n`
+      + this.data.contact.socials[1].label + ` : <a href="${this.data.contact.socials[1].url}">View My Account</a>\n`
     )
-    text += this.data.contact.socials[0].label+' : View My Account\n'
-    + this.data.contact.socials[1].label+' : View My Account\n'
+    text += this.data.contact.socials[0].label + ' : View My Account\n'
+      + this.data.contact.socials[1].label + ' : View My Account\n'
 
     this.typing(text, html)
   }
 
-  outputProfile(){
+  outputProfile() {
     let text = '\n'
-    text += '=== '+this.data.profile.displayName+' ===\n\n'+this.data.profile.greeting+'\n\n'
-    + this.data.profile.discription
+    text += '=== ' + this.data.profile.displayName + ' ===\n\n' + this.data.profile.greeting + '\n\n'
+      + this.data.profile.discription
     const html = text
     this.typing(text, html)
   }
 
   outputDefault() {
-    if(this.timer) clearInterval(this.timer)
+    if (this.timer) clearInterval(this.timer)
     this.target.nativeElement.textContent = '\n'
     this.target.nativeElement.style.color = 'red'
     this.target.nativeElement.style.fontSize = '30px'
@@ -219,7 +234,7 @@ export class Portfolio implements OnInit, AfterViewInit {
             <span type="text" style="font-size: 16px; padding: 0px 10px;">${this.inputKey}</span>
           </div>
           <pre style="border-left: 2px solid orange; padding-left: 15px; font-family: monospace; white-space: pre-wrap;">
-            <span style="width: 400px; color: red; font-size: 30px;">${'\n'+this.data.default}</span>
+            <span style="width: 400px; color: red; font-size: 30px;">${'\n' + this.data.default}</span>
           </pre>
         </div>
         `)
@@ -230,5 +245,23 @@ export class Portfolio implements OnInit, AfterViewInit {
         this.target.nativeElement.style.fontSize = ''
       }
     }, 10)
+  }
+
+  tabToFill() {
+    for (let j = 0; j < this.data.commands.length; j++) {
+      let fromInput = ''
+      let formCommands = ''
+      let com = this.data.commands[j]
+      for (let i = 0; i < this.inputKey.length; i++) {
+        fromInput += this.inputKey[i]
+        formCommands += com[i]
+        console.log(fromInput,'==',formCommands)
+      }
+      if (fromInput == formCommands) {
+        this.inputKey = com
+        this.input.nativeElement.value = com
+        break
+      }
+    }
   }
 }
