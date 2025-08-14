@@ -103,7 +103,8 @@
 .terminal {
     padding: 20px 40px;
     font-size: 20px;
-    overflow: auto;
+    overflow-y: auto;
+    max-height: calc(100vh - 80px);
 }
 .menu {
     display: flex;
@@ -131,7 +132,7 @@
   outline: none;
 }
 .display-list {
-  border-left: 2px solid orange;
+  /* border-left: 2px solid orange; */
   font-family: monospace;
   white-space: pre-wrap;
   padding-left: 15px;

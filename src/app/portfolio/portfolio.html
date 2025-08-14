@@ -1,8 +1,8 @@
 <main class="main">
     <!-- start header -->
     <header class="col-12 header bg-warning ps-3">
-        <h1 class="mb-0 fw-bold">{{data.profile.displayName}}</h1>
-        <h5>{{data.profile.tagline}}</h5>
+        <h1 class="mb-0 fw-bold">{{data?.profile?.displayName}}</h1>
+        <h5>{{data?.profile?.tagline}}</h5>
     </header>
     <!-- end header -->
     <!-- start body -->
@@ -10,8 +10,8 @@
         <!-- start side bar -->
         <aside class="col-5 bg-dark side-bar">
             <img src="images/sokhai.jpg" alt="">
-            <h1 class="mt-4">Call : {{data.profile.alias}}</h1>
-            <h5>{{data.profile.tagline}}</h5>
+            <h1 class="mt-4">Call : {{data?.profile?.alias}}</h1>
+            <h5>{{data?.profile?.tagline}}</h5>
             <!-- media -->
             <div class="cards mt-2">
                 <a href="#" class="socialContainer containerOne">
@@ -51,22 +51,22 @@
         </aside>
         <!-- end side bar -->
         <!-- start terminal -->
-        <div class="col-7 bg-dark terminal text-light">
+        <div class="col-7 bg-dark terminal text-light" #scroll>
             <!-- start menu list -->
             <ul class="menu">|
-                @for(list of data.labels; track $index){
+                @for(list of data?.labels; track $index){
                     <li>{{list.key}}</li>|
                 }
             </ul>
             <div class="arr-commands" #store></div>
             <!-- end menu list -->
             <div class="command-line d-flex text-warning">
-                <span class="fs-6">~ {{data.profile.displayName}}</span>
+                <span class="fs-6">~ {{data?.profile?.displayName}}</span>
                 <span style="margin-top: 1px;">>></span>
                 <input type="text" placeholder="Type to command" [(ngModel)]="inputKey" #input>
             </div>
 
-            <pre class="display-list">
+            <pre class="display-list" [style.border-left]="border()">
                 <span #target></span>
             </pre>
         </div>

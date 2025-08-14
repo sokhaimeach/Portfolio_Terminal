@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, signal, ViewChild } from '@angular/core';
 import { Service } from '../shared/service.service';
 import { FormsModule } from '@angular/forms';
 
@@ -13,23 +13,26 @@ export class Portfolio implements OnInit, AfterViewInit {
   timer: any
   inputKey: string = ''
   storeCommands: any[] = []
+  border = signal('none')
 
+  @ViewChild('scroll') scroll!: ElementRef<HTMLElement>
   @ViewChild('store') store!: ElementRef<HTMLDivElement>
   @ViewChild('target') target!: ElementRef<HTMLElement>
   @ViewChild('test') test!: ElementRef<HTMLElement>
   @ViewChild('input') input!: ElementRef<HTMLInputElement>
 
-  constructor(private ser: Service) { }
+  constructor(private ser: Service) {}
   ngOnInit() {
     this.ser.setLang('en')
     this.data = this.ser.data()
   }
   ngAfterViewInit(): void {
+    this.input.nativeElement.focus()
     this.input.nativeElement.addEventListener('keydown', (e: KeyboardEvent) => {
       const key = e.key
-
-      console.log(key)
+      
       if (key == 'Tab') {
+        e.preventDefault()
         this.tabToFill();
       }
       if (key == 'Enter') {
@@ -38,8 +41,9 @@ export class Portfolio implements OnInit, AfterViewInit {
     })
   }
 
-  checkKey(e: KeyboardEvent) {
-    
+  scrollToBottom() {
+    const el = this.scroll.nativeElement
+    el.scrollTop = el.scrollHeight
   }
 
   checkCommand(): void {
@@ -89,7 +93,7 @@ export class Portfolio implements OnInit, AfterViewInit {
   }
 
   typing(content: string, html: string) {
-
+    this.border.set('2px solid orange')
     this.stoptyping()
     this.target.nativeElement.textContent = ''
 
@@ -103,7 +107,9 @@ export class Portfolio implements OnInit, AfterViewInit {
         this.inputKey = ''
         this.input.nativeElement.value = ''
         this.target.nativeElement.textContent = ''
+        this.border.set('none')
       }
+      this.scrollToBottom()
     }, 10)
   }
 
@@ -128,15 +134,15 @@ export class Portfolio implements OnInit, AfterViewInit {
 
   outputHelp() {
     let text = ''
-    text = '\n' + (this.data.labels[0].key + '               -' + this.data.labels[0].way + '\n')
-      + (this.data.labels[1].key + '             -' + this.data.labels[1].way + '\n')
-      + (this.data.labels[2].key + '           -' + this.data.labels[2].way + '\n')
-      + (this.data.labels[3].key + '     -' + this.data.labels[3].way + '\n')
-      + (this.data.labels[4].key + '                 -' + this.data.labels[4].way + '\n')
-      + (this.data.labels[5].key + '           -' + this.data.labels[5].way + '\n')
-      + (this.data.labels[6].key + '            -' + this.data.labels[6].way + '\n')
-      + (this.data.labels[7].key + '               -' + this.data.labels[7].way + '\n')
-      + (this.data.labels[8].key + '               -' + this.data.labels[8].way + '\n')
+    text = '\n' + (this.data.labels[0].key + '               - ' + this.data.labels[0].way + '\n')
+      + (this.data.labels[1].key + '             - ' + this.data.labels[1].way + '\n')
+      + (this.data.labels[2].key + '           - ' + this.data.labels[2].way + '\n')
+      + (this.data.labels[3].key + '     - ' + this.data.labels[3].way + '\n')
+      + (this.data.labels[4].key + '                 - ' + this.data.labels[4].way + '\n')
+      + (this.data.labels[5].key + '           - ' + this.data.labels[5].way + '\n')
+      + (this.data.labels[6].key + '            - ' + this.data.labels[6].way + '\n')
+      + (this.data.labels[7].key + '               - ' + this.data.labels[7].way + '\n')
+      + (this.data.labels[8].key + '                 - ' + this.data.labels[8].way + '\n')
     const html = text
     this.typing(text, html)
   }
@@ -255,7 +261,6 @@ export class Portfolio implements OnInit, AfterViewInit {
       for (let i = 0; i < this.inputKey.length; i++) {
         fromInput += this.inputKey[i]
         formCommands += com[i]
-        console.log(fromInput,'==',formCommands)
       }
       if (fromInput == formCommands) {
         this.inputKey = com
@@ -263,5 +268,6 @@ export class Portfolio implements OnInit, AfterViewInit {
         break
       }
     }
+    this.input.nativeElement.focus()
   }
 }
