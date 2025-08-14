@@ -90,5 +90,6 @@ export const KM_DATA: Portfolio = {
     location: 'ភ្នំពេញ ប្រទេសកម្ពុជា',
     availability: 'ទទួលការងារក្រៅម៉ោង និងពីចម្ងាយ',
     socials: [{ label: 'GitHub', url: 'https://github.com/youruser' }]
-  }
+  },
+  default: "This command doesn't have, please type $help$ to view all commands"
 };

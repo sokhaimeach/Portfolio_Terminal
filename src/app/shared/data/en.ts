@@ -114,5 +114,6 @@ export const EN_DATA: Portfolio = {
       { label: 'GitHub', url: 'https://github.com/youruser' },
       { label: 'Facebook', url: 'https://github.com/youruser' }
     ]
-  }
+  },
+  default: "This command doesn't have, please type $help$ to view all commands"
 };

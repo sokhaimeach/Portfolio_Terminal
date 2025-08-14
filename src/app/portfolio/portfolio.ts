@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Service } from '../shared/service.service';
 import { FormsModule } from '@angular/forms';
 
@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './portfolio.html',
   styleUrl: './portfolio.css'
 })
-export class Portfolio {
+export class Portfolio implements OnInit, AfterViewInit {
   data: any
   timer: any
   inputKey: string = ''
@@ -20,12 +20,11 @@ export class Portfolio {
   content: string = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis quidem asperiores harum accusantium Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis quidem asperiores harum accusantium Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis quidem asperiores harum accusantium'
   constructor(private ser: Service) { }
   ngOnInit() {
-    this.ser.setLang('en')
+    this.ser.setLang('km')
     this.data = this.ser.data()
   }
-
-  tests() {
-    console.log(this.test.nativeElement.textContent)
+  ngAfterViewInit(): void {
+    this.input.nativeElement.addEventListener('keypress',() => this.input.nativeElement.focus())
   }
 
   checkCommand() {
@@ -65,6 +64,10 @@ export class Portfolio {
       }
       case this.data.commands[8]: {
         window.close()
+        break
+      }
+      default: {
+        this.outputDefault()
         break
       }
     }
@@ -194,5 +197,38 @@ export class Portfolio {
     + this.data.profile.discription
     const html = text
     this.typing(text, html)
+  }
+
+  outputDefault() {
+    if(this.timer) clearInterval(this.timer)
+    this.target.nativeElement.textContent = '\n'
+    this.target.nativeElement.style.color = 'red'
+    this.target.nativeElement.style.fontSize = '30px'
+
+    let i = 0
+    this.timer = setInterval(() => {
+      if (i < this.data.default.length) {
+        this.target.nativeElement.textContent += this.data.default[i++]
+      } else {
+        if (this.timer) clearInterval(this.timer)
+        this.store.nativeElement.insertAdjacentHTML('beforeend', `
+        <div style="margin-bottom: 30px;">
+          <div class="d-flex text-warning" style="height: fit-content; align-items: center;">
+            <span class="fs-6">~ ${this.data.profile.displayName}</span>
+            <span style="margin-top: 1px;">>></span>
+            <span type="text" style="font-size: 16px; padding: 0px 10px;">${this.inputKey}</span>
+          </div>
+          <pre style="border-left: 2px solid orange; padding-left: 15px; font-family: monospace; white-space: pre-wrap;">
+            <span style="width: 400px; color: red; font-size: 30px;">${'\n'+this.data.default}</span>
+          </pre>
+        </div>
+        `)
+        this.inputKey = ''
+        this.input.nativeElement.value = ''
+        this.target.nativeElement.textContent = ''
+        this.target.nativeElement.style.color = ''
+        this.target.nativeElement.style.fontSize = ''
+      }
+    }, 10)
   }
 }

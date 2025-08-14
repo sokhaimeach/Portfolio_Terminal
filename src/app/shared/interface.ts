@@ -47,4 +47,5 @@ export interface Portfolio {
     email?: string; phone?: string; telegram?: string; location?: string; availability?: string;
     socials?: SocialLink[];
   };
+  default: string;
 }
