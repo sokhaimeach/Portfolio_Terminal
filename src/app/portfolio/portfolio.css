@@ -220,11 +220,26 @@
   }
 }
 
-@media (max-width: 800px){
+@media (max-width: 870px){
   .side-bar {
     display: none !important;
   }
   .terminal {
     width: 100% !important;
+  }
+}
+@media (max-width: 600px){
+  .header {
+    height: 60px;
+  }
+  .body {
+    height: calc(100vh - 60px);
+  }
+  .command-line input {
+    font-size: 12px;
+    width: 130px;
+  }
+  .cursor {
+    height: 15px;
   }
 }
