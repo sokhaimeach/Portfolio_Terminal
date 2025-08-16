@@ -1,9 +1,55 @@
 .main {
     background-color: black;
+    color: rgb(0, 255, 0);
 }
 .header {
     height: 80px;
     border: 2px solid white;
+}
+.text-type {
+  display: inline-block;
+  display: flex;
+}
+.cursor {
+  width: 2px;
+  height: 20px;
+  background-color: white;
+  animation: cur 1.5s ease infinite;
+}
+@keyframes cur{
+  0% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 0.1;
+  }
+  50% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 0.1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.typing-text {
+  height: 30px;
+  overflow-x: hidden;
+  width: 450px;
+  white-space: nowrap;
+  animation: typing 4s steps(48) infinite;
+}
+@keyframes typing {
+  0% {
+    width: 0px;
+  }
+  70% {
+    width: 450px;
+  }
+  100% {
+    width: 450px;
+  }
 }
 .body {
     height: calc(100vh - 80px);
@@ -16,11 +62,20 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    color: white;
     border-right: 2px solid white;
+    
 }
 .side-bar img {
-    width: 250px;
+    width: 300px;
+}
+.blob {
+  width: 300px;
+  height: 300px;
+  clip-path: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  clip-path: path("M 84 24 C 132 0, 228 0, 264 72 C 300 144, 288 240, 204 264 C 156 276, 120 288, 84 252 C 48 216, 24 180, 36 108 C 48 60, 48 48, 84 24 Z");
 }
 
 
@@ -50,25 +105,14 @@
 }
 /* instagram*/
 .containerOne:hover {
-  background-color: #d62976;
+  background-color: #293dd6;
   transition-duration: .3s;
 }
 /* twitter*/
 .containerTwo:hover {
-  background-color: #00acee;
+  background-color: #ee0000;
   transition-duration: .3s;
 }
-/* linkdin*/
-.containerThree:hover {
-  background-color: #0072b1;
-  transition-duration: .3s;
-}
-/* Whatsapp*/
-.containerFour:hover {
-  background-color: #128C7E;
-  transition-duration: .3s;
-}
-
 .socialContainer:active {
   transform: scale(0.9);
   transition-duration: .3s;
@@ -76,10 +120,6 @@
 
 .socialSvg {
   width: 17px;
-}
-
-.socialSvg path {
-  fill: rgb(255, 255, 255);
 }
 
 .socialContainer:hover .socialSvg {
@@ -105,6 +145,9 @@
     font-size: 20px;
     overflow-y: auto;
     max-height: calc(100vh - 80px);
+    padding: 1rem;
+    font-size: 1rem;
+    line-height: 1.4;
 }
 .menu {
     display: flex;
@@ -137,4 +180,51 @@
   white-space: pre-wrap;
   padding-left: 15px;
 }
+.setting {
+  border-left: 2px solid orange;
+}
 
+
+.loader {
+  display: flex;
+  align-items: center;
+}
+
+.bar {
+  display: inline-block;
+  width: 2px;
+  height: 10px;
+  background-color: rgba(255, 255, 255, .5);
+  border-radius: 10px;
+  animation: scale-up4 1s linear infinite;
+}
+
+.bar:nth-child(2) {
+  height: 20px;
+  margin: 0 3px;
+  animation-delay: .25s;
+}
+
+.bar:nth-child(3) {
+  animation-delay: .5s;
+}
+
+@keyframes scale-up4 {
+  20% {
+    background-color: #ffff;
+    transform: scaleY(1.5);
+  }
+
+  40% {
+    transform: scaleY(1);
+  }
+}
+
+@media (max-width: 800px){
+  .side-bar {
+    display: none !important;
+  }
+  .terminal {
+    width: 100% !important;
+  }
+}

@@ -44,7 +44,8 @@ export interface Portfolio {
   experience: Experience[];
   skills: SkillGroup[];
   contact: {
-    email?: string; phone?: string; telegram?: string; location?: string; availability?: string;
+    title?: string; email?: string; phone?: string; telegram?: string; location?: string; availability?: string;
+    e_title: string; p_title: string; t_title: string; a_title: string;
     socials?: SocialLink[];
   };
   default: string;
