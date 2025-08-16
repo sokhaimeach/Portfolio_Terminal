@@ -71,12 +71,12 @@
                 <div class="language ms-2">
                     <i class="bi bi-caret-right-fill" [style.color]="color()[0]" style="font-size: small;"
                         [style.opacity]="opacity()[0]"></i>
-                    <span class="ms-1 fs-6" [style.color]="color()[0]">English</span>
+                    <span class="ms-1 fs-6" [style.color]="color()[0]" (click)="clickEnglish()">English</span>
                 </div>
                 <div class="language ms-2">
                     <i class="bi bi-caret-right-fill" [style.color]="color()[1]" style="font-size: small;"
                         [style.opacity]="opacity()[1]"></i>
-                    <span class="ms-1 fs-6" [style.color]="color()[1]">Khmer</span>
+                    <span class="ms-1 fs-6" [style.color]="color()[1]" (click)="clickKhmer()">Khmer</span>
                 </div>
             </div>
         </div>

@@ -39,9 +39,9 @@ export class Portfolio implements OnInit, AfterViewInit {
   @HostListener('document:keydown', ['$event'])
   toggleLanguage(e: KeyboardEvent) {
     if (e.key == 'Tab') {
-        e.preventDefault()
-        this.tabToFill();
-      }
+      e.preventDefault()
+      this.tabToFill();
+    }
     if (e.key === 'Enter') {
       this.checkCommand()
       e.preventDefault()
@@ -49,15 +49,15 @@ export class Portfolio implements OnInit, AfterViewInit {
         setTimeout(() => {
           this.ser.setLang('en')
           this.data = this.ser.data()
-        },4000)
+        }, 4000)
         this.outputSetting()
         this.processing()
         this.isChange = false
-      } else if(this.color()[0] == '' && this.inputKey == this.data.commands[9] && this.isChange){
+      } else if (this.color()[0] == '' && this.inputKey == this.data.commands[9] && this.isChange) {
         setTimeout(() => {
           this.ser.setLang('km')
           this.data = this.ser.data()
-        },4000)
+        }, 4000)
         this.outputSetting()
         this.processing()
         this.isChange = false
@@ -69,7 +69,7 @@ export class Portfolio implements OnInit, AfterViewInit {
         case 'ArrowUp': {
           e.preventDefault()
           this.color.set(['orange', ''])
-          this.opacity.set(['1', '0'])        
+          this.opacity.set(['1', '0'])
           break
         }
         case 'ArrowDown': {
@@ -82,22 +82,52 @@ export class Portfolio implements OnInit, AfterViewInit {
     }
   }
 
+  clickEnglish() {
+    this.isChange = true
+    this.checkCommand()
+    this.color.set(['orange', ''])
+    this.opacity.set(['1', '0'])
+    if (this.color()[0] == 'orange' && this.inputKey == this.data.commands[9] && this.isChange) {
+      setTimeout(() => {
+        this.ser.setLang('en')
+        this.data = this.ser.data()
+      }, 4000)
+      this.outputSetting()
+      this.processing()
+      this.isChange = false
+    }
+  }
+  clickKhmer() {
+    this.isChange = true
+    this.checkCommand()
+    this.color.set(['', 'orange'])
+    this.opacity.set(['0', '1'])
+    
+      setTimeout(() => {
+        this.ser.setLang('km')
+        this.data = this.ser.data()
+      }, 4000)
+      this.outputSetting()
+      this.processing()
+      this.isChange = false
+  }
+
   processing() {
     this.isProcess.set(true)
     this.CountProcessing()
     setTimeout(() => {
       this.isProcess.set(false)
-    },4000)
+    }, 4000)
   }
 
-  CountProcessing(){
-    if(this.count() < 100){
+  CountProcessing() {
+    if (this.count() < 100) {
       setTimeout(() => {
-        this.count.set(this.count()+10)
+        this.count.set(this.count() + 10)
         this.CountProcessing()
-      },300)
+      }, 300)
     } else {
-      setTimeout(() => this.count.set(0),1000)
+      setTimeout(() => this.count.set(0), 1000)
     }
   }
 
@@ -175,7 +205,7 @@ export class Portfolio implements OnInit, AfterViewInit {
         this.border.set('none')
       }
       this.scrollToBottom()
-    }, 10)
+    }, 30)
   }
 
   stoptyping() {
@@ -262,11 +292,11 @@ export class Portfolio implements OnInit, AfterViewInit {
   outputContact() {
     let text = '\n'
     let html = ''
-    text += ('=== '+this.data.contact.title+' ===\n\n'
-      + this.data.contact.e_title+' : ' + this.data.contact.email + '\n'
-      + this.data.contact.p_title+' : ' + this.data.contact.phone + '\n'
-      + this.data.contact.t_title+' : ' + this.data.contact.telegram + '\n'
-      + this.data.contact.a_title+' : ' + this.data.contact.location + '\n')
+    text += ('=== ' + this.data.contact.title + ' ===\n\n'
+      + this.data.contact.e_title + ' : ' + this.data.contact.email + '\n'
+      + this.data.contact.p_title + ' : ' + this.data.contact.phone + '\n'
+      + this.data.contact.t_title + ' : ' + this.data.contact.telegram + '\n'
+      + this.data.contact.a_title + ' : ' + this.data.contact.location + '\n')
     html += (text
       + this.data.contact.socials[0].label + ` : <a href="${this.data.contact.socials[0].url}">View My Account</a>\n`
       + this.data.contact.socials[1].label + ` : <a href="${this.data.contact.socials[1].url}">View My Account</a>\n`
@@ -316,7 +346,7 @@ export class Portfolio implements OnInit, AfterViewInit {
         this.target.nativeElement.style.color = ''
         this.target.nativeElement.style.fontSize = ''
       }
-    }, 10)
+    }, 50)
   }
 
   tabToFill() {
@@ -337,7 +367,7 @@ export class Portfolio implements OnInit, AfterViewInit {
     this.input.nativeElement.focus()
   }
 
-  outputSetting(){
+  outputSetting() {
     this.store.nativeElement.insertAdjacentHTML('beforeend', `
       <div style="margin-bottom: 30px;">
         <div class="d-flex" style="height: fit-content; align-items: center;">
