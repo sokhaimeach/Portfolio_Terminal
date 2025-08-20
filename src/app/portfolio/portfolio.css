@@ -65,17 +65,39 @@
     border-right: 2px solid white;
     
 }
-.side-bar img {
-    width: 300px;
-}
-.blob {
+
+.morph {
   width: 300px;
   height: 300px;
-  clip-path: inherit;
+  background-color: rgba(232, 212, 212, 0.668);
+  animation: pulse 10s linear infinite;
+  border-radius: 38% 62% 37% 63% / 70% 56% 44% 30%;
+  border: 3px solid rgb(0, 250, 0);
+  overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
-  clip-path: path("M 84 24 C 132 0, 228 0, 264 72 C 300 144, 288 240, 204 264 C 156 276, 120 288, 84 252 C 48 216, 24 180, 36 108 C 48 60, 48 48, 84 24 Z");
+}
+.morph img {
+  width: 326px;
+}
+
+@keyframes pulse {
+  0% {
+    border-radius: 38% 62% 37% 63% / 70% 56% 44% 30%;
+  }
+  25% {
+    border-radius: 46% 54% 43% 57% / 64% 60% 40% 36%;    
+  }
+  50% {
+    border-radius: 46% 54% 57% 43% / 45% 60% 40% 55% ;    
+  }
+  75% {
+    border-radius: 55% 45% 66% 34% / 45% 52% 48% 55%;    
+  }
+  100% {
+    border-radius: 38% 62% 37% 63% / 70% 56% 44% 30% ;    
+  }
 }
 
 
